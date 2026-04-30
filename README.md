@@ -146,43 +146,7 @@ L’ESP32 envoie une requête HTTP vers le serveur Ubuntu. Un script PHP reçoit
 
 ### Script PHP
 
-```php
-
-<?php
-
-error_reporting(E_ALL);
-
-ini_set('display_errors', 1);
-
-$file = __DIR__. “/valeur.txt";
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-if (isset($_POST['valeur'])) {
-
-$valeur = $_POST['valeur'];
-
-file_put_contents($file, $valeur);
-
-echo “Valeur enregistrée : “. $valeur;
-
-}
-
-exit;
-
-}
-
-if (file_exists($file)) {
-
-echo file_get_contents($file);
-
-} else {
-
-echo “Aucune valeur reçue.";
-
-}
-
-?>
+<?php error_reporting(E_ALL); ini_set('display_errors', 1); $file = __DIR__ . "/valeur.txt"; // Si c'est une requête POST, on enregistre la valeur if ($_SERVER['REQUEST_METHOD'] === 'POST') { if (isset($_POST['valeur'])) { $valeur = $_POST['valeur']; $result = file_put_contents($file, $valeur); if ($result === false) { echo "Erreur écriture fichier"; } else { echo "Valeur enregistrée : " . $valeur; } } else { echo "POST reçu mais pas de valeur"; } exit; // On arrête ici pour ne pas afficher le GET aussi } // Si c'est une requête GET, on lit et affiche la dernière valeur if (file_exists($file)) { $valeur = file_get_contents($file); echo "Dernière valeur reçue : " . htmlspecialchars($valeur); } else { echo "Aucune valeur reçue pour l'instant."; } ?>
 
 ```
 
