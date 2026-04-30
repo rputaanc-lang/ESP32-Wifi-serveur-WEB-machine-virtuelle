@@ -57,6 +57,7 @@ il sera mieux d'avancer progressivement carse serait plus facile à trouver l'er
 2. Tester le buzzer.
 3. Ajouter Internet.
 4. Fusionner les programmes.
+   
 7️⃣ Première étape : Câblage et test de la LED
 Rôle de la LED
 On utilise d'abord la LED c'est pour vérifier que l'ESP32 fonctionne
