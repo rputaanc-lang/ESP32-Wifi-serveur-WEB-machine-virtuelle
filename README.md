@@ -30,7 +30,7 @@ L'objectif de ce projet est de créer un **objet connecté** capable de communiq
 
 * Réseau WiFi
 
-## 3. Architecture générale du système
+## 3. Déroulement générale du système
 
 Voici comment fonctionne le projet :
 
