@@ -16,7 +16,7 @@ Le site web affiche la valeur reçue.
 Donc :
 ESP32 → Internet → Serveur Ubuntu → Site Web
 
-3️⃣ Pourquoi utiliser une machine virtuelle Ubuntu ?
+2 Pourquoi utiliser une machine virtuelle Ubuntu ?
 Un site web a besoin d’un serveur pour fonctionner. Au lieu d’utiliser un serveur physique, vous pouvez créer une machine virtuelle.
 C'est simplement un ordinateur installé à l’intérieur de votre ordinateur.
 Les avantages sont nombreux :
@@ -28,7 +28,8 @@ Pour installer Ubuntu, vous aurez besoin d’un logiciel tel que :
 * VirtualBox
 * VMware
 La machine virtuelle Ubuntu servira de serveur web local.
-4.Installation du serveur Web
+
+3.Installation du serveur Web
 Un serveur web permet :
 
 d’héberger un site,
@@ -41,7 +42,7 @@ Apache servira à un afficher notre site web
 Le PHP servira a traiter les information envoyé
 libapache2-mod-php on installe ceci dans le la machine virtuelle (Ubuntu) pur pouvoir relié Apache et PHP
 
-5️⃣ Création du site web
+4 Création du site web
 Tous les fichiers du site sont stockés dans:
 /var/www/html
 sur le dossier principale sur le serveur
@@ -51,14 +52,14 @@ il fera office d'un réceptionniste
 * il recevra les donnée envoyé par l'ESP32
 * Le PHP reçoit et enregistre la donnée
 
-6️⃣ Pourquoi tester le matériel étape par étape ?
+5 Pourquoi tester le matériel étape par étape ?
 il sera mieux d'avancer progressivement carse serait plus facile à trouver l'erreur 
 1. Tester la LED.
 2. Tester le buzzer.
 3. Ajouter Internet.
 4. Fusionner les programmes.
    
-7️⃣ Première étape : Câblage et test de la LED
+6 Première étape : Câblage et test de la LED
 Rôle de la LED
 On utilise d'abord la LED c'est pour vérifier que l'ESP32 fonctionne
 que le programme soit bien envoyé 
@@ -81,7 +82,7 @@ void loop() {
 * LOW → LED éteinte
 * delay(1000) → 1 seconde
 
-8️⃣ Deuxième étape : Test du buzzer
+7 Deuxième étape : Test du buzzer
 Rôle du buzzer
 *Le buzzer sert à produire un son.
 
@@ -103,7 +104,7 @@ void loop() {
 }
 si un son est entendu c'est qu'il fonctionne
 
-9️⃣ Connexion WiFi de l’ESP32
+8 Connexion WiFi de l’ESP32
 
 l'avantage principale de l'ESP32 est son Wifi intégrer 
 il peut donc communiquer a distance
@@ -168,12 +169,12 @@ if (file_exists($file)) {
 
 cela envoyé sur le site les valeur de l'ESP32 il y aura aussi deux bouton "Allumer LED" ou "Allumer le Buzzer"
 
-🔟 Programme final combiné
+9 Programme final combiné
 Le programme va allumer la LED et active le buzzer une fois que le serveur va recevoir la 
 donnée 
 il faudra appuyé sur les boutons "Allumer LED" ou "Allumer le Buzzer".
 
-1️⃣1️⃣ Fonctionnement complet du système
+10 Fonctionnement complet du système
 
 Voici ce qui se passe réellement :
 
