@@ -1,0 +1,87 @@
+#include <WiFi.h>
+#include <WebServer.h>
+#include <HTTPClient.h>
+
+const char* ssid = "TPSN035";    // à modifier
+const char* password = "BTSSN2022"; // à modifier aussi
+const char* serverName = "http://192.168.100.36/btsciel/data.php";
+
+WebServer server(80);
+
+int sortieled = 25;
+int buzzer = 27;
+int frequence = 3000;
+
+void gestionLED() {
+  digitalWrite(sortieled, HIGH);
+  delay(300);
+  digitalWrite(sortieled, LOW);
+  delay(300);
+  server.send(200, "text/plain", "LED test");
+}
+
+void gestionSON() {
+  ledcWriteTone(buzzer, 1000);
+  delay(500);
+  ledcWriteTone(buzzer, 500); 
+  delay(500);
+  ledcWriteTone(buzzer, 1000); 
+  delay(500);
+  ledcWriteTone(buzzer, 500); 
+  delay(500);
+  ledcWriteTone(buzzer, 0); 
+  delay(500);
+  server.send(200, "text/plain", "Son test");
+}
+
+void setup() {
+
+  Serial.begin(115200);
+
+  pinMode(sortieled, OUTPUT);
+  ledcAttach(buzzer, frequence, 8);
+  WiFi.begin(ssid, password);
+
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+  }
+
+  Serial.println(WiFi.localIP());
+
+  server.on("/led", gestionLED);  
+  server.on("/son", gestionSON);  
+  
+  server.begin();
+}
+
+void loop() {
+  server.handleClient();
+  
+ if (WiFi.status() == WL_CONNECTED) {
+    int valeur = random(0,100);
+
+    HTTPClient http;
+    http.begin(serverName);
+    http.addHeader("Content-Type", "application/x-www-form-urlencoded");
+
+    String donnee = "valeur=" + String(valeur);
+    Serial.print("donnee transmise ");
+    Serial.println(donnee);
+    int httpReponse = http.POST(donnee);
+    Serial.print("HTTP Reponse code: ");
+    Serial.println(httpReponse);
+     if (httpReponse > 0) {
+      String payload = http.getString();
+      Serial.print("Réponse serveur: ");
+      Serial.println(payload);
+      } else {
+        Serial.print("Erreur lors de la requête POST: ");
+        Serial.println(http.errorToString(httpReponse).c_str());
+      }
+
+
+    http.end();
+  }
+
+  delay(5000);
+}
